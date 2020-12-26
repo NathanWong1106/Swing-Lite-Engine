@@ -1,12 +1,11 @@
 package liteEngine.engine.entities;
 
-import javax.swing.JLabel;
 import liteEngine.engine.events.UpdateEventSource;
+import java.util.HashSet;
+import liteEngine.components.IComponent;
 
 public class GameObject implements IEntity {
 	
-	JLabel label;
-
 	public GameObject() {
 		UpdateEventSource.addUpdateEventListener(this);
 	}
@@ -22,5 +21,4 @@ public class GameObject implements IEntity {
 	public void onDestroy() {
 		UpdateEventSource.removeUpdateEventListener(this);
 	}
-
 }
