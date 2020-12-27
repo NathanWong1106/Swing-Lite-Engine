@@ -12,28 +12,30 @@ import java.util.*;
 public class UpdateEventSource {
 	protected static Timer t;
 	protected static HashSet<IEntity> listeners = new HashSet<IEntity>();
-	
+
 	public static void addUpdateEventListener(IEntity entity) {
 		listeners.add(entity);
 	}
-	
+
 	public static void removeUpdateEventListener(IEntity entity) {
 		listeners.remove(entity);
 	}
-	
+
 	public static void start() {
 		t = new Timer(Time.timeStep, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(!Time.paused) {
+				if (!Time.paused) {
 					for (IEntity entity : listeners) {
 						entity.update();
 					}
 				}
 			}
 		});
+
+		t.start();
 	}
-	
+
 	public static void stop() {
 		t.stop();
 	}

@@ -1,5 +1,6 @@
 package liteEngine.engine.entities;
 
 public interface IEntity {
-	public void update();
+	public abstract void update();
+	public abstract void onDestroy();
 }

@@ -5,8 +5,21 @@ import java.awt.event.KeyListener;
 import java.util.*;
 
 public class InputManager implements KeyListener {
+	private static InputManager instance = null;
 	
-	private HashMap<Integer, Boolean> keysDown = new HashMap<Integer, Boolean>();
+	private InputManager() {
+		
+	}
+	
+	public static InputManager getInstance() {
+		if(instance == null) {
+			instance = new InputManager();
+		}
+		return instance;
+	}
+	
+	
+	private static HashMap<Integer, Boolean> keysDown = new HashMap<Integer, Boolean>();
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -23,7 +36,7 @@ public class InputManager implements KeyListener {
 		keysDown.put(e.getKeyCode(), false);
 	}
 	
-	public boolean getKeyDown(int keyCode) {
+	public static boolean getKeyDown(int keyCode) {
 		return keysDown.getOrDefault(keyCode, false);
 	}
 
