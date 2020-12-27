@@ -1,9 +1,9 @@
 package liteEngine.dataStructures;
 
 public class Point2D {
-	public double x, y;
+	public int x, y;
 
-	public Point2D(double x, double y) {
+	public Point2D(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}

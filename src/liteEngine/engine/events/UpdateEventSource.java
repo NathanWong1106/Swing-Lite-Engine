@@ -12,13 +12,15 @@ import java.util.*;
 public class UpdateEventSource {
 	protected static Timer t;
 	protected static HashSet<IEntity> listeners = new HashSet<IEntity>();
+	protected static HashSet<IEntity> newListeners = new HashSet<IEntity>();
+	protected static HashSet<IEntity> toRemove = new HashSet<IEntity>();
 
 	public static void addUpdateEventListener(IEntity entity) {
-		listeners.add(entity);
+		newListeners.add(entity);
 	}
 
 	public static void removeUpdateEventListener(IEntity entity) {
-		listeners.remove(entity);
+		toRemove.add(entity);
 	}
 
 	public static void start() {
@@ -27,8 +29,13 @@ public class UpdateEventSource {
 			public void actionPerformed(ActionEvent e) {
 				if (!Time.paused) {
 					for (IEntity entity : listeners) {
-						entity.update();
+						entity.fixedUpdate();
 					}
+					listeners.addAll(newListeners);
+					listeners.removeAll(toRemove);
+					
+					newListeners.clear();
+					toRemove.clear();
 				}
 			}
 		});

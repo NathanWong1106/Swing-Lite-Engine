@@ -12,6 +12,11 @@ public class MainView extends JFrame implements IEntity {
 
 	private MainView() {
 		UpdateEventSource.addUpdateEventListener(this);
+		Awake();
+	}
+	
+	public void Awake() {
+		
 	}
 
 	public static MainView getInstance() {
@@ -30,14 +35,21 @@ public class MainView extends JFrame implements IEntity {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 	}
-
-	@Override
+	
+	public final void fixedUpdate() {
+		update();
+	}
+	
 	public void update() {
 		if (instance != null) {
 			repaint();
 		}
 	}
-
+	
+	public final void onObjectDestroy() {
+		onDestroy();
+	}
+	
 	@Override
 	public void onDestroy() {
 

@@ -3,23 +3,35 @@ package liteEngine.engine.events;
 import java.util.HashSet;
 
 public class EventSource {
-	protected HashSet<ICallable> listeners = new HashSet<ICallable>();
-
-	public void addListener(ICallable listener) {
+	protected HashSet<Runnable> listeners = new HashSet<Runnable>();
+	
+	public void addListener(Runnable listener) {
 		listeners.add(listener);
 	}
 
-	public void removeListener(ICallable listener) {
+	public void removeListener(Runnable listener) {
 		listeners.remove(listener);
 	}
 
 	public void clearListeners() {
 		listeners.clear();
 	}
-
-	public void broadcast(String event) {
-		for (ICallable listener : listeners) {
-			listener.receive(event);
+	
+	public void broadcast() {
+		for(Runnable listener : listeners) {
+			listener.run();
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
