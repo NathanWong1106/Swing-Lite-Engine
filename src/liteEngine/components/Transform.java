@@ -1,25 +1,42 @@
 package liteEngine.components;
 
-import liteEngine.dataStructures.Point2D;
+import liteEngine.dataStructures.Vector2;
 
-public class Transform extends Component {
-	public Point2D sizeDelta = new Point2D(0, 0);
-	public Point2D position = new Point2D(0, 0);
+/**
+ * Contains the position and sizeDelta of an entity on screen.
+ * @author Nathan Wong
+ */
+public final class Transform extends Component {
+	public Vector2 sizeDelta = new Vector2(0, 0);
+	public Vector2 position = new Vector2(0, 0);
 
 	public void setSize(int width, int height) {
-		sizeDelta = new Point2D(width, height);
+		sizeDelta = new Vector2(width, height);
+	}
+	
+	public void setSize(Vector2 sizeDelta) {
+		this.sizeDelta = sizeDelta;
 	}
 
 	public void setPosition(int x, int y) {
-		position = new Point2D(x, y);
+		position = new Vector2(x, y);
+	}
+	
+	public void setPosition(Vector2 position) {
+		this.position = position;
 	}
 
 	public void setSizeAndPosition(int width, int height, int x, int y) {
 		setSize(width, height);
 		setPosition(x, y);
 	}
+	
+	public void setSizeAndPosition(Vector2 sizeDelta, Vector2 position) {
+		this.sizeDelta = sizeDelta;
+		this.position = position;
+	}
 
 	public void translate(int right, int up) {
-		position = new Point2D(position.x + right, position.y - up);
+		position = new Vector2(position.x + right, position.y - up);
 	}
 }

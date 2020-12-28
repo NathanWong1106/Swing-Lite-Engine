@@ -9,6 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 
+/**
+ * Event source of the game update loop
+ * @author Nathan Wong
+ */
 public class UpdateEventSource {
 	protected static Timer t;
 	protected static HashSet<IEntity> listeners = new HashSet<IEntity>();

@@ -6,9 +6,12 @@ import java.util.HashSet;
 import javax.swing.*;
 
 import liteEngine.UI.MainView;
-import liteEngine.engine.entities.GameObject;
 
-public class Renderer extends Component {
+/**
+ * Contains a JLabel and an ImageIcon tracking the GameObject transform.
+ * @author Nathan Wong
+ */
+public final class Renderer extends Component {
 	public JLabel label = new JLabel();
 	public ImageIcon icon;
 
@@ -28,6 +31,7 @@ public class Renderer extends Component {
 	public void update() {
 		Transform t = this.parent.transform;
 		this.label.setBounds(t.position.x, t.position.y, t.sizeDelta.x, t.sizeDelta.y);
+		this.label.setIcon(icon);
 	}
 	
 	@Override

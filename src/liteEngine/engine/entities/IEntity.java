@@ -25,5 +25,5 @@ public interface IEntity {
 	/**
 	 * called by constructors after instantiation or by receivers after dependencies are added
 	 */
-	public void Awake();
+	public void awake();
 }

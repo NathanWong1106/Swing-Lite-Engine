@@ -7,15 +7,15 @@ import liteEngine.engine.events.UpdateEventSource;
 import liteEngine.engine.events.keyInput.InputManager;
 
 @SuppressWarnings("serial")
-public class MainView extends JFrame implements IEntity {
+public final class MainView extends JFrame implements IEntity {
 	private static MainView instance = null;
-
+	
 	private MainView() {
 		UpdateEventSource.addUpdateEventListener(this);
-		Awake();
+		awake();
 	}
 	
-	public void Awake() {
+	public void awake() {
 		
 	}
 
@@ -27,11 +27,11 @@ public class MainView extends JFrame implements IEntity {
 	}
 	
 	//TODO these settings should be able to be overwritten by the user
-	public void init() {
+	public void init(ViewSettings settings) {
 		addKeyListener(InputManager.getInstance());
-		setTitle("Hello World!");
-		setSize(500, 500);
-		setLayout(null);
+		setTitle(settings.title);
+		setSize(settings.screenDimension.x, settings.screenDimension.y);
+		setLayout(settings.layout);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 	}

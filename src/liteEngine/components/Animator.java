@@ -6,9 +6,12 @@ import java.util.HashSet;
 
 import javax.swing.ImageIcon;
 
-public class Animator extends Component {
-	public HashMap<String, ImageIcon> states = new HashMap<String, ImageIcon>();
-
+/**
+ * Extensible component used to provide animation states to a Renderer component.
+ * This component must be extended in order to be used. Provide your logic in animStateProvider and states in getStates.
+ * @author Nathan Wong
+ */
+public abstract class Animator extends Component {
 	@Override
 	public final void update() {
 		updateAnimations();
@@ -20,15 +23,20 @@ public class Animator extends Component {
 	}
 
 	protected final void updateAnimations() {
-		this.parent.getComponent(Renderer.class).label.setIcon(animStateProvider());;
+		this.parent.getComponent(Renderer.class).icon = animStateProvider();
 	}
+	
+	/**
+	 * 
+	 * @return a map of state names and animations
+	 */
+	protected abstract HashMap<String, ImageIcon> getStates();
 	
 	/**
 	 * In a prefab animator, place animation logic here
 	 * 
 	 * @example if(speed > 20) return states.get("run")
+	 * @return animation state
 	 */
-	protected ImageIcon animStateProvider() {
-		return null;
-	}
+	protected abstract ImageIcon animStateProvider();
 }

@@ -20,11 +20,11 @@ public class Component implements IEntity {
 		//only execute if there are no dependencies
 		if(getDependencies().size() == 0) {
 			UpdateEventSource.addUpdateEventListener(this);
-			Awake();
+			awake();
 		}
 	}
 	
-	public void Awake() {
+	public void awake() {
 		
 	}
 	
@@ -36,7 +36,7 @@ public class Component implements IEntity {
 	};
 	
 	protected void onDependenciesAdded() {
-		Awake();
+		awake();
 		UpdateEventSource.addUpdateEventListener(this);
 	}
 	

@@ -1,15 +1,16 @@
 package liteEngine.engine;
 
 import liteEngine.UI.MainView;
+import liteEngine.UI.ViewSettings;
 import liteEngine.engine.events.UpdateEventSource;
 
-public class Game {
-	private Game() {
-		
-	}
-
-	public static void init() {
-		MainView.getInstance().init();
+/**
+ * After initialization of custom components use this class to start the game
+ * @author Nathan Wong
+ */
+public final class Game {
+	public static void init(ViewSettings viewSettings) {
+		MainView.getInstance().init(viewSettings);
 		UpdateEventSource.start();
 	}
 }

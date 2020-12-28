@@ -4,6 +4,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.*;
 
+/**
+ * Maintains a boolean mapping of all keys that are currently pressed
+ * @author Nathan Wong
+ *
+ */
 public class InputManager implements KeyListener {
 	private static InputManager instance = null;
 	

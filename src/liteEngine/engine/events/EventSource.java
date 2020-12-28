@@ -2,7 +2,11 @@ package liteEngine.engine.events;
 
 import java.util.HashSet;
 
-public class EventSource {
+/**
+ * Broadcasts events to listener functions(Runnables).
+ * @author Nathan Wong
+ */
+public final class EventSource {
 	protected HashSet<Runnable> listeners = new HashSet<Runnable>();
 	
 	public void addListener(Runnable listener) {
@@ -17,7 +21,7 @@ public class EventSource {
 		listeners.clear();
 	}
 	
-	public void broadcast() {
+	public void invoke() {
 		for(Runnable listener : listeners) {
 			listener.run();
 		}

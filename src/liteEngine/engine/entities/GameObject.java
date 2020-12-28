@@ -6,7 +6,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import liteEngine.components.Component;
 import liteEngine.components.Transform;
+import liteEngine.dataStructures.Vector2;
 
+/**
+ * Base class that all entities in your game should inherit from. Components can be added to extend functionality.
+ * @author Nathan Wong
+ */
 public class GameObject implements IEntity {
 
 	public Transform transform = null;
@@ -18,13 +23,13 @@ public class GameObject implements IEntity {
 	public GameObject() {
 		this.transform = addComponent(Transform.class);
 		UpdateEventSource.addUpdateEventListener(this);
-		Awake();
+		awake();
 	}
 
 	/**
 	 * Invoked by the constructor immediately after instantiation
 	 */
-	public void Awake() {
+	public void awake() {
 
 	}
 
@@ -96,11 +101,11 @@ public class GameObject implements IEntity {
 	 *                  liteEngine.components.component)
 	 */
 	public <T extends Component> void addComponent(T component) {
-		if(component.parent != null) {
-			System.err.println("~Gameobject.AddComponent: a component cannot have multiple parents");
+		if (component.parent != null) {
+			System.err.println("~GameObject.AddComponent: a component cannot have multiple parents");
 			return;
 		}
-		
+
 		components.put(component.getClass(), component);
 		component.parent = this;
 		addDependencies(component);
@@ -127,7 +132,7 @@ public class GameObject implements IEntity {
 				}
 			}
 
-			dependencySource.broadcast();
+			dependencySource.invoke();
 			dependencySource.removeListener(component.onDependenciesAdded);
 		}
 
@@ -163,7 +168,7 @@ public class GameObject implements IEntity {
 	/**
 	 * Instantiates a given GameObject
 	 */
-	public <T extends GameObject> T instantiate(Class<T> gameObjectClass) {
+	protected <T extends GameObject> T instantiate(Class<T> gameObjectClass) {
 		try {
 			return gameObjectClass.getConstructor().newInstance();
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
@@ -174,9 +179,18 @@ public class GameObject implements IEntity {
 	}
 
 	/**
+	 * Instantiates a given GameObject with the specified transform arguments
+	 */
+	protected <T extends GameObject> T instantiate(Class<T> gameObjectClass, Vector2 sizeDelta, Vector2 position) {
+		T obj = instantiate(gameObjectClass);
+		obj.transform.setSizeAndPosition(sizeDelta, position);
+		return obj;
+	}
+
+	/**
 	 * Destroys a given GameObject
 	 */
-	public <T extends GameObject> void destroy(T gameObject) {
+	protected <T extends GameObject> void destroy(T gameObject) {
 		gameObject.onObjectDestroy();
 	}
 
