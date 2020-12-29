@@ -1,4 +1,4 @@
-package liteEngine.engine.entities;
+package liteEngine.entities;
 
 public interface IEntity {
 	
@@ -18,7 +18,7 @@ public interface IEntity {
 	public void onDestroy();
 	
 	/**
-	 * called by onDestroy event
+	 * called by a destruction call
 	 */
 	public void onObjectDestroy(); 
 	

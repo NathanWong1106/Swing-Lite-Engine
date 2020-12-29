@@ -1,11 +1,10 @@
 package liteEngine.components;
 
-import liteEngine.engine.entities.IEntity;
-import liteEngine.engine.events.UpdateEventSource;
+import liteEngine.entities.GameObject;
+import liteEngine.entities.IEntity;
+import liteEngine.events.UpdateEventSource;
 
 import java.util.HashSet;
-
-import liteEngine.engine.entities.GameObject;
 
 /**
  * Parent class for all Component entities in Lite Engine
@@ -56,7 +55,7 @@ public class Component implements IEntity {
 
 	}
 	
-	public final void onObjectDestroy() {
+	public void onObjectDestroy() {
 		UpdateEventSource.removeUpdateEventListener(this);
 		onDestroy();
 	}

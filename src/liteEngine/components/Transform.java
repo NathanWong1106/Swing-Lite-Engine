@@ -1,5 +1,7 @@
 package liteEngine.components;
 
+import java.awt.Rectangle;
+
 import liteEngine.dataStructures.Vector2;
 
 /**
@@ -9,6 +11,10 @@ import liteEngine.dataStructures.Vector2;
 public final class Transform extends Component {
 	public Vector2 sizeDelta = new Vector2(0, 0);
 	public Vector2 position = new Vector2(0, 0);
+	
+	public Transform() {
+		super();
+	}
 
 	public void setSize(int width, int height) {
 		sizeDelta = new Vector2(width, height);
@@ -38,5 +44,9 @@ public final class Transform extends Component {
 
 	public void translate(int right, int up) {
 		position = new Vector2(position.x + right, position.y - up);
+	}
+	
+	public Rectangle getBounds() {
+		return new Rectangle(position.x, position.y, sizeDelta.x, sizeDelta.y);
 	}
 }

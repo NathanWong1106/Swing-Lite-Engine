@@ -2,9 +2,9 @@ package liteEngine.UI;
 
 import javax.swing.*;
 
-import liteEngine.engine.entities.IEntity;
-import liteEngine.engine.events.UpdateEventSource;
 import liteEngine.engine.events.keyInput.InputManager;
+import liteEngine.entities.IEntity;
+import liteEngine.events.UpdateEventSource;
 
 @SuppressWarnings("serial")
 public final class MainView extends JFrame implements IEntity {

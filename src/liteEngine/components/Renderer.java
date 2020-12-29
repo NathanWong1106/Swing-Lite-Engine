@@ -13,12 +13,18 @@ import liteEngine.UI.MainView;
  */
 public final class Renderer extends Component {
 	public JLabel label = new JLabel();
-	public ImageIcon icon;
+	private ImageIcon icon;
+	
+	public Renderer() {
+		super();
+	}
 
-	public void init(int posX, int posY, int sizeX, int sizeY, ImageIcon icon, String text) {
-		this.label.setBounds(posX, posY, sizeX, sizeY);
+	public void init(ImageIcon icon, String text) {
 		this.label.setText(text);
-		this.label.setIcon(icon);
+
+		setIcon(icon);
+		this.label.setIcon(this.icon);
+		
 		MainView.getInstance().add(this.label);
 	}
 
@@ -31,11 +37,16 @@ public final class Renderer extends Component {
 	public void update() {
 		Transform t = this.parent.transform;
 		this.label.setBounds(t.position.x, t.position.y, t.sizeDelta.x, t.sizeDelta.y);
-		this.label.setIcon(icon);
 	}
 	
 	@Override
 	public HashSet<Class<? extends Component>> getDependencies() {
 		return new HashSet<Class<? extends Component>>(Arrays.asList(Transform.class));
+	}
+	
+	public void setIcon(ImageIcon icon) {
+		Transform t = this.parent.transform;
+		this.icon = new ImageIcon(icon.getImage().getScaledInstance(t.sizeDelta.x, t.sizeDelta.y, 0));
+		this.label.setIcon(this.icon);
 	}
 }

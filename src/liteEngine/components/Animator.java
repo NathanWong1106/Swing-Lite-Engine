@@ -8,10 +8,17 @@ import javax.swing.ImageIcon;
 
 /**
  * Extensible component used to provide animation states to a Renderer component.
- * This component must be extended in order to be used. Provide your logic in animStateProvider and states in getStates.
+ * This component must be extended in order to be used. Provide your HashMap of String and ImageIcon KVP's.
  * @author Nathan Wong
  */
 public abstract class Animator extends Component {
+	
+	private String lastState = "";
+	
+	public Animator() {
+		super();
+	}
+	
 	@Override
 	public final void update() {
 		updateAnimations();
@@ -23,20 +30,29 @@ public abstract class Animator extends Component {
 	}
 
 	protected final void updateAnimations() {
-		this.parent.getComponent(Renderer.class).icon = animStateProvider();
+		String nextState = animStateProvider();
+		if(nextState == null) {
+			return;
+		}
+		
+		if(!this.lastState.equals(nextState)) {
+			this.lastState = nextState;
+			this.parent.getComponent(Renderer.class).setIcon(this.getState(nextState));
+		}
 	}
 	
 	/**
-	 * 
-	 * @return a map of state names and animations
+	 * @return the value(ImageIcon) of the key in the anim HashMap
 	 */
-	protected abstract HashMap<String, ImageIcon> getStates();
+	protected ImageIcon getState(String key) {
+		return null;
+	}
 	
 	/**
 	 * In a prefab animator, place animation logic here
 	 * 
-	 * @example if(speed > 20) return states.get("run")
-	 * @return animation state
+	 * @example if(speed > 20) return "run"
+	 * @return animation key or null if no condition is satisfied
 	 */
-	protected abstract ImageIcon animStateProvider();
+	protected abstract String animStateProvider();
 }

@@ -1,27 +1,34 @@
-package liteEngine.engine.entities;
+package liteEngine.entities;
 
-import liteEngine.engine.events.EventSource;
-import liteEngine.engine.events.UpdateEventSource;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
+
+import liteEngine.components.Collider;
 import liteEngine.components.Component;
 import liteEngine.components.Transform;
 import liteEngine.dataStructures.Vector2;
+import liteEngine.events.EventSource;
+import liteEngine.events.UpdateEventSource;
 
 /**
  * Base class that all entities in your game should inherit from. Components can be added to extend functionality.
  * @author Nathan Wong
  */
 public class GameObject implements IEntity {
-
-	public Transform transform = null;
-	public HashMap<Class<? extends Component>, Object> components = new HashMap<Class<? extends Component>, Object>();
-
+	
 	/**
-	 * @apiNote DO NOT override the constructor - use Awake instead
+	 * Transform of the GameObject
 	 */
-	public GameObject() {
+	public Transform transform = null;
+	
+	/**
+	 * Set of all components of the GameObject
+	 */
+	protected HashMap<Class<? extends Component>, Object> components = new HashMap<Class<? extends Component>, Object>();
+	
+	public GameObject(Vector2 sizeDelta, Vector2 position) {
 		this.transform = addComponent(Transform.class);
+		this.transform.setSizeAndPosition(Vector2.copy(sizeDelta), Vector2.copy(position));
 		UpdateEventSource.addUpdateEventListener(this);
 		awake();
 	}
@@ -148,7 +155,7 @@ public class GameObject implements IEntity {
 	@SuppressWarnings("unchecked")
 	public <T extends Component> void removeComponent(Class<T> componentClass) {
 		T component = (T) components.getOrDefault(componentClass, null);
-		component.onDestroy();
+		component.onObjectDestroy();
 		components.remove(componentClass);
 	}
 
@@ -169,8 +176,15 @@ public class GameObject implements IEntity {
 	 * Instantiates a given GameObject
 	 */
 	protected <T extends GameObject> T instantiate(Class<T> gameObjectClass) {
+		return instantiate(gameObjectClass, Vector2.zero, Vector2.zero);
+	}
+
+	/**
+	 * Instantiates a given GameObject with the specified transform arguments
+	 */
+	protected <T extends GameObject> T instantiate(Class<T> gameObjectClass, Vector2 sizeDelta, Vector2 position) {
 		try {
-			return gameObjectClass.getConstructor().newInstance();
+			return gameObjectClass.getConstructor(Vector2.class, Vector2.class).newInstance(sizeDelta, position);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
@@ -179,19 +193,18 @@ public class GameObject implements IEntity {
 	}
 
 	/**
-	 * Instantiates a given GameObject with the specified transform arguments
-	 */
-	protected <T extends GameObject> T instantiate(Class<T> gameObjectClass, Vector2 sizeDelta, Vector2 position) {
-		T obj = instantiate(gameObjectClass);
-		obj.transform.setSizeAndPosition(sizeDelta, position);
-		return obj;
-	}
-
-	/**
 	 * Destroys a given GameObject
 	 */
 	protected <T extends GameObject> void destroy(T gameObject) {
 		gameObject.onObjectDestroy();
+	}
+	
+	/**
+	 * Called when a Collider component detects a collision
+	 * @param other the intersecting collider
+	 */
+	public void onCollision(Collider other) {
+		
 	}
 
 }

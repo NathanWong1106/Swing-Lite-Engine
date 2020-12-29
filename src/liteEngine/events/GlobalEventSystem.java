@@ -1,4 +1,4 @@
-package liteEngine.engine.events;
+package liteEngine.events;
 
 import java.util.HashMap;
 
