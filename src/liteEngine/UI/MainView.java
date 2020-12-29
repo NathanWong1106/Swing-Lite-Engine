@@ -2,8 +2,8 @@ package liteEngine.UI;
 
 import javax.swing.*;
 
-import liteEngine.engine.events.keyInput.InputManager;
 import liteEngine.entities.IEntity;
+import liteEngine.events.InputManager;
 import liteEngine.events.UpdateEventSource;
 
 @SuppressWarnings("serial")

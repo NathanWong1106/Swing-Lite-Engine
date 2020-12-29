@@ -1,14 +1,20 @@
 package liteEngine.components;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 
 import javax.swing.ImageIcon;
 
 /**
- * Extensible component used to provide animation states to a Renderer component.
- * This component must be extended in order to be used. Provide your HashMap of String and ImageIcon KVP's.
+ * Extensible abstract component used to provide animation states to a Renderer component.
+ * 
+ * <h1>In order to use an animator you must:</h1>
+ * <ul>
+ * <li>Create a class that extends the Animator Component</li>
+ * <li>Create a HashMap of String and ImageIcon KVP's</li>
+ * <li>Override <code>getState</code> - return the ImageIcon of a provided String Key</li>
+ * <li>Implement <code>animStateProvider</code> - return a String key or null if no condition is satisfied</li>
+ * </ul>
  * @author Nathan Wong
  */
 public abstract class Animator extends Component {

@@ -8,9 +8,7 @@ import liteEngine.collision.CollisionRegistry;
 
 /**
  * Collider that detects collisions with the parent's Transform component. When
- * a collision is detected, onCollision will be called on the parent GameObject
- * 
- * @apiNote   
+ * a collision is detected, onCollision will be called on the parent GameObject 
  * 
  * <h1>Important</h1>
  * <ul>
@@ -24,12 +22,12 @@ public class Collider extends Component {
 	
 	public Collider() {
 		super();
+		CollisionRegistry.registerCollider(this);
 	}
 	
 	@Override
 	public void awake() {
-		CollisionRegistry.registerCollider(this);
-		// add to collision registry
+		
 	}
 
 	public Rectangle getTransformRect() {
@@ -42,7 +40,6 @@ public class Collider extends Component {
 	 * @param other the intersecting collider
 	 */
 	public void onCollisionWith(Collider other) {
-		// call some user handler
 		this.parent.onCollision(other);
 	}
 

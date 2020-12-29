@@ -1,7 +1,16 @@
 package liteEngine.dataStructures;
 
-public class Vector2 {
-	
+/**
+ * Stores two integer values (x,y)
+ * @author Nathan Wong
+ *
+ */
+public class Vector2 implements java.io.Serializable{
+	private static final long serialVersionUID = -1309307253770238553L;
+
+	/**
+	 * Vector2 representation of (0,0)
+	 */
 	public static final Vector2 zero = new Vector2(0,0);
 	
 	public int x, y;
